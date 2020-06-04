@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import calendar
 from contextlib import contextmanager
 from datetime import datetime

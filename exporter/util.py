@@ -1,5 +1,6 @@
 # pylint: disable=missing-docstring
 
+from __future__ import absolute_import
 import atexit
 from contextlib import contextmanager
 import functools
@@ -9,6 +10,7 @@ import shutil
 import subprocess
 import tempfile
 import time
+import six
 
 log = logging.getLogger(__name__)
 
@@ -20,8 +22,8 @@ class MetaNotSet(type):
         raise ValueError("Value not set in child class")
 
 
-class NotSet(object):
-    __metaclass__ = MetaNotSet
+class NotSet(six.with_metaclass(MetaNotSet, object)):
+    pass
 
 
 # Dictionary utilities
@@ -51,7 +53,7 @@ def filter_keys(mapping, keys):
     if keys:
         result = {k: {} for k in keys}
         result.update({k: v for k, v
-                       in mapping.iteritems()
+                       in six.iteritems(mapping)
                        if k in keys})
     else:
         result = mapping.copy()
@@ -100,7 +102,7 @@ def with_temp_directory(*d_args, **d_kwargs):
     def wrap(func):
         @functools.wraps(func)
         def wrapped(*args):
-            if func.func_code.co_argcount - len(args) == 1:
+            if func.__code__.co_argcount - len(args) == 1:
                 with make_temp_directory(*d_args, **d_kwargs) as temp_dir:
                     args += (temp_dir,)
                     return func(*args)

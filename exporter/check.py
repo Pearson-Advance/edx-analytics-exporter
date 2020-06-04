@@ -17,6 +17,7 @@ Options:
     --window=<days>          Fail if the most recent file is older than this many days. [default: 6]
 """
 
+from __future__ import absolute_import
 import datetime
 import logging
 import os

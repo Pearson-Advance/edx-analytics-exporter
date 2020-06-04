@@ -1,0 +1,2 @@
+# Version constraints for pip-installation.
+futures ; python_version == "2.7"

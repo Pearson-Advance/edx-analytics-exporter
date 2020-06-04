@@ -1,7 +1,9 @@
+from __future__ import absolute_import
 from contextlib import closing
 import json
 import csv
 import mysql.connector
+import six
 
 MAX_FETCH_SIZE = 10000
 
@@ -59,4 +61,4 @@ class MysqlDumpQueryToTSV(object):
 
     def _normalize_value(self, value):
         if value is None: value='NULL'
-        return unicode(value).encode('utf-8').replace('\\', '\\\\').replace('\r', '\\r').replace('\t','\\t').replace('\n', '\\n')
+        return six.text_type(value).encode('utf-8').replace('\\', '\\\\').replace('\r', '\\r').replace('\t','\\t').replace('\n', '\\n')

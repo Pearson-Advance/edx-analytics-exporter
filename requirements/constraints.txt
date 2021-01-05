@@ -1,0 +1,8 @@
+# edx-platform Juniper version compatible.
+edx-opaque-keys==2.1.0
+
+# Python 3.5 compatible.
+path==13.1.0
+stevedore==1.32.0
+importlib-metadata==1.6.0
+zipp==1.0.0

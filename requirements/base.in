@@ -5,6 +5,8 @@ docopt
 edx-ccx-keys
 edx-opaque-keys
 graphitesend
+mysql-connector-python
+path
 path.py
 pbr
 pip

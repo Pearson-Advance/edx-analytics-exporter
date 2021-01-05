@@ -175,7 +175,8 @@ class MongoTask(Task):
     mongoexport
       --host {mongo_host}
       --db {mongo_db}
-      --username {mongo_user}
+      --authenticationDatabase "{mongo_auth_db}"
+      --username "{mongo_user}"
       --password "{mongo_password}"
       --collection {mongo_collection}
       --query '{query}'

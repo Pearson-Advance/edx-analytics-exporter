@@ -16,8 +16,9 @@ defaults:
   django_cms_settings: cms-django-settings e.g. cms.envs.devstack_docker
   django_database: the_django_database
   mongo_collection: name-of-the-mongo-collection
-  sql_user: user-name
+  sql_user: mysql-username
   sql_db: name-of-the-edxapp-db e.g. edxapp
+  sql_password: mysql-password
   secret_key: ''
   monitor: false
   graphite_host: localhost
@@ -30,8 +31,13 @@ environments:
     django_config: /prod/django/config
     mongo_host: 0.0.0.0:9999
     mongo_db: the_mongo_db
+    mongo_user: the_mongo_username
+    mongo_password: the_mongo_password
+    mongo_auth_db: authentication-database-name
     name: prod-mongodb
     sql_host: prod-sql-host.example.com
+    lms_config: path-to-the-lms-yml-config-file
+    studio_config: path-to-the-studio-yml-config-file
   edge:
     django_config: /edge/django/config
     mongo_host: 0.0.0.0:8888
@@ -44,8 +50,11 @@ environments:
     mongo_db: edxapp
     mongo_user: edxapp
     mongo_password: password
+    mongo_auth_db: authentication-database-name
     name: local-mongodb This name will be used to create the Mongo DB files.
     sql_host: edx.devstack.mysql
+    lms_config: path-to-the-lms-yml-config-file
+    studio_config: path-to-the-studio-yml-config-file
 
 organizations:
   edX:

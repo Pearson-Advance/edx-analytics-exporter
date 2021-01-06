@@ -11,9 +11,7 @@ from exporter.config import setup_logging
 from exporter.mysql_query import MysqlDumpQueryToTSV
 from exporter.util import NotSet, execute_shell
 
-
 setup_logging()
-
 
 log = logging.getLogger(__name__)
 
@@ -84,6 +82,7 @@ class FilenameMixin(object):
 
 class OrgTask(FilenameMixin):
     """ Mixin class for organization level tasks."""
+
     @staticmethod
     def entity_name(kwargs):
         organization = _substitute_non_ascii_chars(kwargs['organization'])
@@ -142,9 +141,10 @@ class SQLTask(Task):
         log.debug(query)
 
         if dry_run:
-            print 'SQL: {0}'.format(query)
+            print('SQL: {0}'.format(query))
         else:
-            mysql_query = MysqlDumpQueryToTSV(kwargs.get('sql_host'), kwargs.get('sql_user'), kwargs.get('sql_password'), kwargs.get('sql_db'), filename)
+            mysql_query = MysqlDumpQueryToTSV(kwargs.get('sql_host'), kwargs.get('sql_user'),
+                                              kwargs.get('sql_password'), kwargs.get('sql_db'), filename)
             mysql_query.execute(query)
 
     @classmethod
@@ -175,7 +175,8 @@ class MongoTask(Task):
     mongoexport
       --host {mongo_host}
       --db {mongo_db}
-      --username {mongo_user}
+      --authenticationDatabase "{mongo_auth_db}"
+      --username "{mongo_user}"
       --password "{mongo_password}"
       --collection {mongo_collection}
       --query '{query}'
@@ -195,7 +196,7 @@ class MongoTask(Task):
         cmd = cmd.format(filename=filename, query=query, **kwargs)
 
         if dry_run:
-            print 'MONGO: {0}'.format(query)
+            print('MONGO: {0}'.format(query))
         else:
             execute_shell(cmd, **kwargs)
 
@@ -267,9 +268,9 @@ class CopyS3FileTask(Task):
         )
 
         if dry_run:
-            print 'Copy S3 File: {0} to {1}'.format(
+            print('Copy S3 File: {0} to {1}'.format(
                 s3_source_filename,
-                filename)
+                filename))
         else:
             # First check to see that the export data was successfully generated
             # by looking for a marker file for that run. Return a more severe failure,
@@ -378,6 +379,7 @@ class CourseEnrollmentTask(CourseTask, SQLTask):
     WHERE course_id='{course}'
     """
 
+
 class CourseGradesTask(CourseTask, SQLTask):
     NAME = 'grades_persistentcoursegrade'
     SQL = """
@@ -393,6 +395,7 @@ class CourseGradesTask(CourseTask, SQLTask):
     WHERE grades_persistentcoursegrade.course_id='{course}'
     ORDER BY grades_persistentcoursegrade.user_id
     """
+
 
 class SubsectionGradesTask(CourseTask, SQLTask):
     NAME = 'grades_persistentsubsectiongrade'
@@ -412,6 +415,7 @@ class SubsectionGradesTask(CourseTask, SQLTask):
     ORDER BY grades_persistentsubsectiongrade.user_id,
              grades_persistentsubsectiongrade.first_attempted
     """
+
 
 class GeneratedCertificateTask(CourseTask, SQLTask):
     NAME = 'certificates_generatedcertificate'
@@ -492,6 +496,7 @@ class StudentLanguageProficiencyTask(CourseTask, SQLTask):
 
 class CourseWikiTask(CourseTask):
     """ Mixin for Course Wiki related tasks """
+
     @classmethod
     def run(cls, filename, dry_run, **kwargs):
         course_key = CourseKey.from_string(kwargs['course'])
@@ -613,12 +618,14 @@ class AssessmentAIClassifierTask(ORA2CourseTask, SQLTask):
                                   WHERE course_id="{course}")
     """
 
+
 class AssessmentAIClassifierSetTask(ORA2CourseTask, SQLTask):
     NAME = 'assessment_aiclassifierset'
     SQL = """
     SELECT * FROM assessment_aiclassifierset
     WHERE course_id="{course}"
     """
+
 
 # Not used
 class AssessmentAIGradingWorkflowTask(ORA2CourseTask, SQLTask):
@@ -628,12 +635,14 @@ class AssessmentAIGradingWorkflowTask(ORA2CourseTask, SQLTask):
     WHERE course_id="{course}"
     """
 
+
 class AssessmentAITrainingWorkflowTask(ORA2CourseTask, SQLTask):
     NAME = 'assessment_aitrainingworkflow'
     SQL = """
     SELECT * FROM assessment_aitrainingworkflow
     WHERE course_id="{course}"
     """
+
 
 class AssessmentAITrainingWorkflowTrainingExamplesTask(ORA2CourseTask, SQLTask):
     NAME = 'assessment_aitrainingworkflow_training_examples'
@@ -643,6 +652,7 @@ class AssessmentAITrainingWorkflowTrainingExamplesTask(ORA2CourseTask, SQLTask):
                                       WHERE course_id="{course}")
     """
 
+
 class AssessmentAssessmentTask(ORA2CourseTask, SQLTask):
     NAME = 'assessment_assessment'
     SQL = """
@@ -651,6 +661,7 @@ class AssessmentAssessmentTask(ORA2CourseTask, SQLTask):
     LEFT JOIN submissions_studentitem AS si ON s.student_item_id=si.id
     WHERE si.course_id="{course}"
     """
+
 
 class AssessmentAssessmentFeedbackTask(ORA2CourseTask, SQLTask):
     NAME = 'assessment_assessmentfeedback'
@@ -664,6 +675,7 @@ class AssessmentAssessmentFeedbackTask(ORA2CourseTask, SQLTask):
     WHERE si.course_id="{course}"
     """
 
+
 class AssessmentAssessmentFeedbackAssessmentsTask(ORA2CourseTask, SQLTask):
     NAME = 'assessment_assessmentfeedback_assessments'
     SQL = """
@@ -673,6 +685,7 @@ class AssessmentAssessmentFeedbackAssessmentsTask(ORA2CourseTask, SQLTask):
     LEFT JOIN submissions_studentitem AS si ON s.student_item_id=si.id
     WHERE si.course_id="{course}"
     """
+
 
 class AssessmentAssessmentFeedbackOptionsTask(ORA2CourseTask, SQLTask):
     """
@@ -689,6 +702,7 @@ class AssessmentAssessmentFeedbackOptionsTask(ORA2CourseTask, SQLTask):
     LEFT JOIN submissions_studentitem AS si ON s.student_item_id=si.id
     WHERE si.course_id="{course}"
     """
+
 
 class AssessmentAssessmentFeedbackOptionTask(ORA2CourseTask, SQLTask):
     """
@@ -708,6 +722,7 @@ class AssessmentAssessmentFeedbackOptionTask(ORA2CourseTask, SQLTask):
     WHERE si.course_id="{course}"
     """
 
+
 class AssessmentAssessmentPartTask(ORA2CourseTask, SQLTask):
     NAME = 'assessment_assessmentpart'
     SQL = """
@@ -717,6 +732,7 @@ class AssessmentAssessmentPartTask(ORA2CourseTask, SQLTask):
     LEFT JOIN submissions_studentitem AS si ON s.student_item_id=si.id
     WHERE si.course_id="{course}"
     """
+
 
 class AssessmentCriterionTask(ORA2CourseTask, SQLTask):
     NAME = 'assessment_criterion'
@@ -745,6 +761,7 @@ class AssessmentCriterionTask(ORA2CourseTask, SQLTask):
             LEFT JOIN assessment_aiclassifierset AS acs ON rub.id=acs.rubric_id
             WHERE acs.course_id="{course}")
     """
+
 
 class AssessmentCriterionOptionTask(ORA2CourseTask, SQLTask):
     NAME = 'assessment_criterionoption'
@@ -776,12 +793,14 @@ class AssessmentCriterionOptionTask(ORA2CourseTask, SQLTask):
                 WHERE acs.course_id="{course}"))
     """
 
+
 class AssessmentPeerWorkflowTask(ORA2CourseTask, SQLTask):
     NAME = 'assessment_peerworkflow'
     SQL = """
     SELECT * FROM assessment_peerworkflow
     WHERE course_id="{course}"
     """
+
 
 class AssessmentPeerWorkflowItemTask(ORA2CourseTask, SQLTask):
     NAME = 'assessment_peerworkflowitem'
@@ -790,6 +809,7 @@ class AssessmentPeerWorkflowItemTask(ORA2CourseTask, SQLTask):
     WHERE assessment_id IN (SELECT id FROM assessment_peerworkflow
                       WHERE course_id="{course}")
     """
+
 
 class AssessmentRubricTask(ORA2CourseTask, SQLTask):
     """
@@ -821,12 +841,14 @@ class AssessmentRubricTask(ORA2CourseTask, SQLTask):
         WHERE acs.course_id="{course}"
     """
 
+
 class AssessmentStudentTrainingWorkflow(ORA2CourseTask, SQLTask):
     NAME = 'assessment_studenttrainingworkflow'
     SQL = """
     SELECT * FROM assessment_studenttrainingworkflow
     WHERE course_id="{course}"
     """
+
 
 class AssessmentStudentTrainingWorkflowItemTask(ORA2CourseTask, SQLTask):
     NAME = 'assessment_studenttrainingworkflowitem'
@@ -857,6 +879,7 @@ class AssessmentTrainingExampleTask(ORA2CourseTask, SQLTask):
         WHERE stw.course_id="{course}"
     """
 
+
 class AssessmentTrainingExampleOptionsSelectedTask(ORA2CourseTask, SQLTask):
     NAME = 'assessment_trainingexample_options_selected'
     SQL = """
@@ -876,6 +899,7 @@ class AssessmentTrainingExampleOptionsSelectedTask(ORA2CourseTask, SQLTask):
             WHERE stw.course_id="{course}")
     """
 
+
 class SubmissionsScoreTask(ORA2CourseTask, SQLTask):
     NAME = 'submissions_score'
     SQL = """
@@ -883,6 +907,7 @@ class SubmissionsScoreTask(ORA2CourseTask, SQLTask):
     WHERE student_item_id IN (SELECT id FROM submissions_studentitem
                               WHERE course_id="{course}")
     """
+
 
 class SubmissionsScoreSummaryTask(ORA2CourseTask, SQLTask):
     NAME = 'submissions_scoresummary'
@@ -892,12 +917,14 @@ class SubmissionsScoreSummaryTask(ORA2CourseTask, SQLTask):
                               WHERE course_id="{course}")
     """
 
+
 class SubmissionsStudentItemTask(ORA2CourseTask, SQLTask):
     NAME = 'submissions_studentitem'
     SQL = """
     SELECT * FROM submissions_studentitem
     WHERE course_id="{course}"
     """
+
 
 class SubmissionsSubmissionTask(ORA2CourseTask, SQLTask):
     NAME = 'submissions_submission'
@@ -907,12 +934,14 @@ class SubmissionsSubmissionTask(ORA2CourseTask, SQLTask):
                               WHERE course_id="{course}")
     """
 
+
 class WorkflowAssessmentWorkflowTask(ORA2CourseTask, SQLTask):
     NAME = 'workflow_assessmentworkflow'
     SQL = """
     SELECT * FROM workflow_assessmentworkflow
     WHERE course_id="{course}"
     """
+
 
 class WorkflowAssessmentWorkflowStepTask(ORA2CourseTask, SQLTask):
     NAME = 'workflow_assessmentworkflowstep'
@@ -921,6 +950,7 @@ class WorkflowAssessmentWorkflowStepTask(ORA2CourseTask, SQLTask):
     WHERE workflow_id IN (SELECT id FROM workflow_assessmentworkflow
                           WHERE course_id="{course}")
     """
+
 
 # End ORA2 Tables ==================
 
@@ -997,7 +1027,7 @@ class OrgEmailOptInTask(OrgTask, DjangoAdminTask):
         organizations = [kwargs['organization']] + kwargs.get('other_names', [])
         kwargs['comma_sep_courses'] = ','.join(kwargs['courses'])
         kwargs['all_organizations'] = ' '.join(organizations)
-        kwargs['max_tries'] = 3 # always retry this task a couple of times.
+        kwargs['max_tries'] = 3  # always retry this task a couple of times.
         return super(OrgEmailOptInTask, cls).run(filename, dry_run, **kwargs)
 
 

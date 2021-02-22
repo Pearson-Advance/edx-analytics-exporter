@@ -4,33 +4,24 @@
 #
 #    make upgrade
 #
-awscli==1.18.204          # via -r requirements/base.in
-botocore==1.19.44         # via awscli, s3transfer
-colorama==0.4.3           # via awscli
 docopt==0.6.2             # via -r requirements/base.in
-docutils==0.15.2          # via awscli
-edx-ccx-keys==1.1.0       # via -r requirements/base.in
+edx-ccx-keys==1.2.0       # via -r requirements/base.in
 edx-opaque-keys==2.1.0    # via -c requirements/constraints.txt, -r requirements/base.in, edx-ccx-keys
 graphitesend==0.10.0      # via -r requirements/base.in
 importlib-metadata==1.6.0  # via -c requirements/constraints.txt, path
-jmespath==0.10.0          # via botocore
-more-itertools==8.6.0     # via zipp
-mysql-connector-python==8.0.22  # via -r requirements/base.in
+more-itertools==8.7.0     # via zipp
+mysql-connector-python==8.0.23  # via -r requirements/base.in
 path.py==12.5.0           # via -r requirements/base.in
 path==13.1.0              # via -c requirements/constraints.txt, -r requirements/base.in, path.py
 pbr==5.5.1                # via -r requirements/base.in, stevedore
-protobuf==3.14.0          # via mysql-connector-python
+protobuf==3.15.1          # via mysql-connector-python
 psutil==5.8.0             # via -r requirements/base.in
-pyasn1==0.4.8             # via rsa
-pymongo==3.11.2           # via -r requirements/base.in, edx-opaque-keys
-python-dateutil==2.8.1    # via -r requirements/base.in, botocore
+pymongo==3.11.3           # via -r requirements/base.in, edx-opaque-keys
+python-dateutil==2.8.1    # via -r requirements/base.in
 python-gnupg==0.4.6       # via -r requirements/base.in
-pyyaml==5.3.1             # via -r requirements/base.in, awscli
-rsa==4.5                  # via awscli
-s3transfer==0.3.3         # via awscli
+pyyaml==5.3.1             # via -c requirements/constraints.txt, -r requirements/base.in
 six==1.15.0               # via edx-ccx-keys, edx-opaque-keys, protobuf, python-dateutil, stevedore
 stevedore==1.32.0         # via -c requirements/constraints.txt, edx-opaque-keys
-urllib3==1.26.2           # via botocore
 zipp==1.0.0               # via -c requirements/constraints.txt, importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:

@@ -5,42 +5,37 @@
 #    make upgrade
 #
 attrs==20.3.0             # via pytest
-awscli==1.18.174          # via -r requirements/base.txt
-botocore==1.19.14         # via -r requirements/base.txt, awscli, s3transfer
-colorama==0.4.3           # via -r requirements/base.txt, awscli
-coverage==5.3             # via -r requirements/test.in, pytest-cov
+coverage==5.4             # via -r requirements/test.in, pytest-cov
 docopt==0.6.2             # via -r requirements/base.txt
-docutils==0.15.2          # via -r requirements/base.txt, awscli
-edx-ccx-keys==1.1.0       # via -r requirements/base.txt
-edx-opaque-keys==2.1.1    # via -r requirements/base.txt, edx-ccx-keys
+edx-ccx-keys==1.2.0       # via -r requirements/base.txt
+edx-opaque-keys==2.1.0    # via -c requirements/constraints.txt, -r requirements/base.txt, edx-ccx-keys
 graphitesend==0.10.0      # via -r requirements/base.txt
-importlib-metadata==2.0.0  # via -r requirements/base.txt, pluggy, pytest, stevedore
+importlib-metadata==1.6.0  # via -c requirements/constraints.txt, -r requirements/base.txt, path, pluggy, pytest
 iniconfig==1.1.1          # via pytest
-jmespath==0.10.0          # via -r requirements/base.txt, botocore
-mock==4.0.2               # via -r requirements/test.in
-http://cdn.mysql.com/Downloads/Connector-Python/mysql-connector-python-1.2.2.zip  # via -r requirements/github.txt
-packaging==20.4           # via pytest
+mock==3.0.5               # via -r requirements/test.in
+more-itertools==8.7.0     # via -r requirements/base.txt, zipp
+http://cdn.mysql.com/Downloads/Connector-Python/mysql-connector-python-1.2.2.zip  # via -r requirements/github_requirements.txt
+mysql-connector-python==8.0.23  # via -r requirements/base.txt
+packaging==20.9           # via pytest
 path.py==12.5.0           # via -r requirements/base.txt
-path==15.0.0              # via -r requirements/base.txt, path.py
+path==13.1.0              # via -c requirements/constraints.txt, -r requirements/base.txt, path.py
+pathlib2==2.3.5           # via pytest
 pbr==5.5.1                # via -r requirements/base.txt, stevedore
 pluggy==0.13.1            # via pytest
-psutil==5.7.3             # via -r requirements/base.txt
-py==1.9.0                 # via pytest
-pyasn1==0.4.8             # via -r requirements/base.txt, rsa
-pymongo==3.11.0           # via -r requirements/base.txt, edx-opaque-keys
+protobuf==3.15.1          # via -r requirements/base.txt, mysql-connector-python
+psutil==5.8.0             # via -r requirements/base.txt
+py==1.10.0                # via pytest
+pymongo==3.11.3           # via -r requirements/base.txt, edx-opaque-keys
 pyparsing==2.4.7          # via packaging
-pytest-cov==2.10.1        # via -r requirements/test.in
+pytest-cov==2.11.1        # via -r requirements/test.in
 pytest==6.1.2             # via -r requirements/test.in, pytest-cov
-python-dateutil==2.8.1    # via -r requirements/base.txt, botocore
+python-dateutil==2.8.1    # via -r requirements/base.txt
 python-gnupg==0.4.6       # via -r requirements/base.txt
-pyyaml==5.3.1             # via -r requirements/base.txt, awscli
-rsa==4.5                  # via -r requirements/base.txt, awscli
-s3transfer==0.3.3         # via -r requirements/base.txt, awscli
-six==1.15.0               # via -r requirements/base.txt, edx-ccx-keys, edx-opaque-keys, packaging, python-dateutil
-stevedore==3.2.2          # via -r requirements/base.txt, edx-opaque-keys
+pyyaml==5.3.1             # via -c requirements/constraints.txt, -r requirements/base.txt
+six==1.15.0               # via -r requirements/base.txt, edx-ccx-keys, edx-opaque-keys, mock, pathlib2, protobuf, python-dateutil, stevedore
+stevedore==1.32.0         # via -c requirements/constraints.txt, -r requirements/base.txt, edx-opaque-keys
 toml==0.10.2              # via pytest
-urllib3==1.25.11          # via -r requirements/base.txt, botocore
-zipp==3.4.0               # via -r requirements/base.txt, importlib-metadata
+zipp==1.0.0               # via -c requirements/constraints.txt, -r requirements/base.txt, importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools

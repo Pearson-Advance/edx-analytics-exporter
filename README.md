@@ -23,6 +23,9 @@ pip install -r github_requirements.txt
 pip install -e .
 ```
 
+IMPORTANT: This project requires awscli installed to work, but it's not included in the project requirements
+because awscli version 1.0 is deprecated, make sure to install awscli version 2.0 following the official instructions: https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html.
+
 Running
 =======
 
